@@ -60,7 +60,7 @@ for interface in interfaces:
                 'WLB_INTERFACE_STATE'
                 ) == 'ACTIVE':
         print(
-            'wlb-cf-ddns: Performing dynamic DNS update for interface:',
+            'wlb-cf-ddns: Performing dynamic DNS update for interface',
             os.environ.get('WLB_INTERFACE_NAME')
             )
 
@@ -173,7 +173,7 @@ for interface in interfaces:
                 'WLB_INTERFACE_STATE'
                 ) == 'FAILED':
         print(
-            'wlb-cf-ddns: Performing dynamic DNS update for interface:',
+            'wlb-cf-ddns: Performing dynamic DNS update for interface',
             os.environ.get('WLB_INTERFACE_NAME')
             )
 
@@ -234,4 +234,7 @@ for interface in interfaces:
                 'does not have an existing DNS record, skipping...'
                 )
     else:
-        print('wlb-cf-ddns: No dynamic DNS updates required')
+        print(
+            'wlb-cf-ddns: No dynamic DNS updates required for interface',
+            interface
+            )
