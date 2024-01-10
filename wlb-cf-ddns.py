@@ -7,6 +7,7 @@ import json
 
 import requests
 from requests import adapters
+from vyos.configquery import ConfigTreeQuery
 
 
 class InterfaceAdapter(adapters.HTTPAdapter):
@@ -32,8 +33,21 @@ class InterfaceAdapter(adapters.HTTPAdapter):
 # Configurables
 zone_name = "example.com"
 record_name = "wan.example.com"
-interfaces = ["eth0", "eth1", "eth2"]
 api_token = "<your Cloudflare API token>"
+
+# Get list of load-balanced WAN interfaces
+interfaces_raw = []
+conf_query = ConfigTreeQuery()
+wlb_rules = conf_query.list_nodes(['load-balancing', 'wan', 'rule'])
+for rule in wlb_rules:
+    for interface in conf_query.list_nodes(
+            ['load-balancing', 'wan', 'rule', rule, 'interface']
+            ):
+        interfaces_raw.append(interface)
+interfaces = list(set(interfaces_raw))
+del interfaces_raw
+del wlb_rules
+del conf_query
 
 # Iterate through list of interfaces
 api_auth = {'Authorization': 'Bearer ' + api_token}

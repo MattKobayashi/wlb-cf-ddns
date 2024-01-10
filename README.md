@@ -17,7 +17,6 @@
 
 	- `zone_name`: the DNS zone name, e.g. `example.com`
 	- `record_name`: the zone sub-domain that you want the dynamic A records under, e.g. `wan.example.com`
-	- `interfaces`: a list of your WAN interfaces
 	- `api_token`: your Cloudflare API token, which should have the following permissions for the relevant zone:
 		- `Zone:Read`
 		- `DNS:Read`
